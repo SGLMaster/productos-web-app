@@ -3,6 +3,9 @@ import { Router } from '@vaadin/router';
 
 import '@material/mwc-tab-bar';
 import '@material/mwc-tab';
+import '@material/mwc-dialog';
+import '@material/mwc-textfield';
+import '@material/mwc-button';
 
 import '../../page-main/page-main.js';
 import '../../page-one/page-one.js';
@@ -49,6 +52,15 @@ export class ProductosApp extends LitElement {
           <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
         </mwc-tab-bar>
       </header>
+
+      <mwc-dialog title="Ingreso">
+        <div>
+          Por favor ingrese sus datos si desea acceder:
+        </div><br>
+        <mwc-textfield label="Usuario" dialogInitialFocus></mwc-textfield><br><br>
+        <mwc-textfield label="Contraseña"></mwc-textfield>
+        <mwc-button slot="primaryAction" dialogAction="loginUser">Ingresar</mwc-button>
+      </mwc-dialog>
 
       <main id="outlet"></main>
 
