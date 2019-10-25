@@ -8,7 +8,7 @@ import '@material/mwc-textfield';
 import '@material/mwc-button';
 
 import '../../page-main/page-main.js';
-import '../../page-one/page-one.js';
+import '../../page-productos/page-productos.js';
 
 export class ProductosApp extends LitElement {
   static get properties() {
@@ -27,7 +27,7 @@ export class ProductosApp extends LitElement {
     const router = new Router(this.shadowRoot.getElementById('outlet'));
     router.setRoutes([
       { path: '/', component: 'page-main' },
-      { path: '/pageOne', component: 'page-one' },
+      { path: '/productos', component: 'page-productos' },
       {
         path: '(.*)',
         redirect: '/',
@@ -48,7 +48,7 @@ export class ProductosApp extends LitElement {
       <header>
         <mwc-tab-bar>
           <mwc-tab label="Inicio" @click=${() => this.switchRoute('')}></mwc-tab>
-          <mwc-tab label="Productos" @click=${() => this.switchRoute('pageOne')}></mwc-tab>
+          <mwc-tab label="Productos" @click=${() => this.switchRoute('productos')}></mwc-tab>
           <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
         </mwc-tab-bar>
       </header>
