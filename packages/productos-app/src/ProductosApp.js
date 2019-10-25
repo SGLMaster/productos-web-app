@@ -1,6 +1,9 @@
 import { LitElement, html, css } from 'lit-element';
 import { Router } from '@vaadin/router';
 
+import '@material/mwc-tab-bar';
+import '@material/mwc-tab';
+
 import '../../page-main/page-main.js';
 import '../../page-one/page-one.js';
 
@@ -40,17 +43,11 @@ export class ProductosApp extends LitElement {
   render() {
     return html`
       <header>
-        <ul>
-          <li>
-            <a @click=${() => this.switchRoute('')}>Main</a>
-          </li>
-          <li>
-            <a @click=${() => this.switchRoute('pageOne')}>Page One</a>
-          </li>
-          <li>
-            <a @click=${() => this.switchRoute('')}>About</a>
-          </li>
-        </ul>
+        <mwc-tab-bar>
+          <mwc-tab label="Inicio" @click=${() => this.switchRoute('')}></mwc-tab>
+          <mwc-tab label="Productos" @click=${() => this.switchRoute('pageOne')}></mwc-tab>
+          <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
+        </mwc-tab-bar>
       </header>
 
       <main id="outlet"></main>
