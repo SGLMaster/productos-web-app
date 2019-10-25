@@ -19,7 +19,11 @@ export class DialogLogin extends LitElement {
   }
 
   async loginToApi() {
-    const requestBody = { username: "willians", password: "wwog567"}
+    const textfields = this.shadowRoot.querySelectorAll('mwc-textfield');
+    const user = textfields[0].value;
+    const pass = textfields[1].value;
+
+    const requestBody = { username: user, password: pass}
 
     const response = await fetch('https://ancient-mesa-25039.herokuapp.com/users/login', {
       method: 'POST',
@@ -42,7 +46,7 @@ export class DialogLogin extends LitElement {
           Por favor ingrese sus datos si desea acceder:
         </div><br>
         <mwc-textfield label="Usuario" dialogInitialFocus></mwc-textfield><br><br>
-        <mwc-textfield label="Contraseña"></mwc-textfield>
+        <mwc-textfield label="Contraseña" type="password"></mwc-textfield>
         <mwc-button slot="primaryAction" @click=${this.loginToApi}>Ingresar</mwc-button>
       </mwc-dialog>
     `;
