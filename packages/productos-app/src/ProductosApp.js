@@ -70,8 +70,8 @@ export class ProductosApp extends LitElement {
       <main id="outlet"></main>
 
       <p class="app-footer">
-        🚽 Made with love by
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/open-wc">open-wc</a>.
+        Hecho por
+        <a target="_blank" rel="noopener noreferrer" href="https://apps2go.tech">apps2go</a>.
       </p>
     `;
   }
