@@ -43,6 +43,10 @@ export class ProductosApp extends LitElement {
     Router.go(`/${page}`);
   }
 
+  openLoginDialog() {
+    this.shadowRoot.querySelector('mwc-dialog').open = true;
+  }
+
   render() {
     return html`
       <header>
@@ -50,6 +54,7 @@ export class ProductosApp extends LitElement {
           <mwc-tab label="Inicio" @click=${() => this.switchRoute('')}></mwc-tab>
           <mwc-tab label="Productos" @click=${() => this.switchRoute('productos')}></mwc-tab>
           <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
+          <mwc-button @click=${() => this.openLoginDialog()} raised>Ingresar</mwc-button>
         </mwc-tab-bar>
       </header>
 
@@ -92,28 +97,10 @@ export class ProductosApp extends LitElement {
           border-bottom: 1px solid #ccc;
         }
 
-        header ul {
-          display: flex;
-          justify-content: space-between;
-          min-width: 400px;
-          margin: 0 auto;
-          padding: 0;
-        }
-
-        header ul li {
-          display: flex;
-        }
-
-        header ul li a {
-          color: #ccc;
-          text-decoration: none;
-          font-size: 18px;
-          line-height: 36px;
-        }
-
-        header ul li a:hover,
-        header ul li a.active {
-          color: #000;
+        mwc-button {
+          --mdc-theme-primary: green;
+          --mdc-theme-on-primary: white;
+          margin-top: 5px;
         }
 
         main {
