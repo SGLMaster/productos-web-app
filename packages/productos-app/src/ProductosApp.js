@@ -34,6 +34,7 @@ export class ProductosApp extends LitElement {
         },
       },
     ]);
+    this.switchRoute('');
   }
 
   switchRoute(page) {
