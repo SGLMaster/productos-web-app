@@ -3,12 +3,10 @@ import { Router } from '@vaadin/router';
 
 import '@material/mwc-tab-bar';
 import '@material/mwc-tab';
-import '@material/mwc-dialog';
-import '@material/mwc-textfield';
-import '@material/mwc-button';
 
 import '../../page-main/page-main.js';
 import '../../page-productos/page-productos.js';
+import '../../dialog-login/dialog-login.js';
 
 export class ProductosApp extends LitElement {
   static get properties() {
@@ -43,8 +41,9 @@ export class ProductosApp extends LitElement {
     Router.go(`/${page}`);
   }
 
-  openLoginDialog() {
-    this.shadowRoot.querySelector('mwc-dialog').open = true;
+  openDialogLogin() {
+    // @ts-ignore
+    this.shadowRoot.querySelector('dialog-login').open();
   }
 
   render() {
@@ -54,18 +53,11 @@ export class ProductosApp extends LitElement {
           <mwc-tab label="Inicio" @click=${() => this.switchRoute('')}></mwc-tab>
           <mwc-tab label="Productos" @click=${() => this.switchRoute('productos')}></mwc-tab>
           <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
-          <mwc-button @click=${() => this.openLoginDialog()} raised>Ingresar</mwc-button>
+          <mwc-button @click=${() => this.openDialogLogin()} raised>Ingresar</mwc-button>
         </mwc-tab-bar>
       </header>
 
-      <mwc-dialog title="Ingreso">
-        <div>
-          Por favor ingrese sus datos si desea acceder:
-        </div><br>
-        <mwc-textfield label="Usuario" dialogInitialFocus></mwc-textfield><br><br>
-        <mwc-textfield label="Contraseña"></mwc-textfield>
-        <mwc-button slot="primaryAction" dialogAction="loginUser">Ingresar</mwc-button>
-      </mwc-dialog>
+      <dialog-login></dialog-login>
 
       <main id="outlet"></main>
 
