@@ -1,10 +1,14 @@
 import { html, css, LitElement } from 'lit-element';
+import { connect } from 'pwa-helpers';
 
 import '@material/mwc-dialog';
 import '@material/mwc-textfield';
 import '@material/mwc-button';
 
-export class DialogLogin extends LitElement {
+import { store } from '../../redux/store.js';
+import { updateToken } from '../../redux/actions/actions.js';
+
+export class DialogLogin extends connect(store)(LitElement) {
   static get properties() {
     return {
       errorMsg: { type: String },
@@ -50,7 +54,7 @@ export class DialogLogin extends LitElement {
       const { token } = data;
 
       if (token) {
-        this.dispatchEvent(new CustomEvent('login-success', { detail: token }));
+        store.dispatch(updateToken(token));
       } else {
         const { error } = data;
         throw error;

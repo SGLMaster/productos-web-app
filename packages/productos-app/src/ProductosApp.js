@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import { Router } from '@vaadin/router';
+import { connect } from 'pwa-helpers';
 
 import '@material/mwc-tab-bar';
 import '@material/mwc-tab';
@@ -8,7 +9,9 @@ import '../../page-main/page-main.js';
 import '../../page-productos/page-productos.js';
 import '../../dialog-login/dialog-login.js';
 
-export class ProductosApp extends LitElement {
+import { store } from '../../redux/store.js';
+
+export class ProductosApp extends connect(store)(LitElement) {
   static get properties() {
     return {
       title: { type: String },
@@ -49,8 +52,8 @@ export class ProductosApp extends LitElement {
     this.shadowRoot.querySelector('dialog-login').open();
   }
 
-  handleLoginSuccess(event) {
-    this.token = event.detail;
+  stateChanged(state) {
+    this.token = state.token;
   }
 
   render() {
@@ -69,7 +72,7 @@ export class ProductosApp extends LitElement {
         </mwc-tab-bar>
       </header>
 
-      <dialog-login @login-success=${this.handleLoginSuccess}></dialog-login>
+      <dialog-login></dialog-login>
 
       <main id="outlet"></main>
 
