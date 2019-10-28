@@ -13,14 +13,14 @@ export class ProductosApp extends LitElement {
     return {
       title: { type: String },
       page: { type: String },
-      loggedIn: { type: Boolean },
+      token: { type: String },
     };
   }
 
   constructor() {
     super();
     this.page = '';
-    this.loggedIn = false;
+    this.token = '';
   }
 
   firstUpdated() {
@@ -49,8 +49,8 @@ export class ProductosApp extends LitElement {
     this.shadowRoot.querySelector('dialog-login').open();
   }
 
-  handleLoginSuccess() {
-    this.loggedIn = true;
+  handleLoginSuccess(event) {
+    this.token = event.detail;
   }
 
   render() {
@@ -61,7 +61,7 @@ export class ProductosApp extends LitElement {
           <mwc-tab label="Productos" @click=${() => this.switchRoute('productos')}></mwc-tab>
           <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
 
-          ${this.loggedIn
+          ${this.token
             ? ''
             : html`
                 <mwc-button @click=${() => this.openDialogLogin()} raised> Ingresar</mwc-button>
