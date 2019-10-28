@@ -2,6 +2,7 @@ import { html, css, LitElement } from 'lit-element';
 
 import '@material/mwc-dialog';
 import '@material/mwc-textfield';
+import '@material/mwc-textarea';
 import '@material/mwc-button';
 
 export class DialogAgregarProducto extends LitElement {
@@ -34,16 +35,24 @@ export class DialogAgregarProducto extends LitElement {
 
   render() {
     return html`
-      <mwc-dialog title="Ingreso">
+      <mwc-dialog title="Agregar Producto">
         <div>
-          Por favor ingrese sus datos si desea acceder:
+          Ingrese los datos del producto a agregar:
         </div>
         <br />
-        <mwc-textfield label="Usuario" dialogInitialFocus></mwc-textfield>
+        <mwc-textfield label="Nombre" dialogInitialFocus></mwc-textfield>
         <br /><br />
-        <mwc-textfield label="Contraseña" type="password"></mwc-textfield>
+        <mwc-textarea label="Descripción" rows="5"></mwc-textarea>
+        <br /><br />
+        <mwc-textfield label="Cantidad" type="number"></mwc-textfield>
+        <br /><br />
+        <mwc-textfield label="Peso" type="number"></mwc-textfield>
+        <br /><br />
         <mwc-button slot="primaryAction">
-          Ingresar
+          Agregar
+        </mwc-button>
+        <mwc-button slot="secondaryAction" dialogAction="cancel">
+          Cancelar
         </mwc-button>
         ${this.errorMsg
           ? html`

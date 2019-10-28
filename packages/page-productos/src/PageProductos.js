@@ -1,5 +1,9 @@
 import { html, css, LitElement } from 'lit-element';
 
+import '@material/mwc-button';
+
+import '../../dialog-agregar-producto/dialog-agregar-producto.js';
+
 export class PageProductos extends LitElement {
   static get styles() {
     return css`
@@ -38,7 +42,7 @@ export class PageProductos extends LitElement {
       const response = await fetch(
         'https://ancient-mesa-25039.herokuapp.com/productos?filter[limit]=10',
         {
-        method: 'GET',
+          method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         },
       );
@@ -72,12 +76,23 @@ export class PageProductos extends LitElement {
           product => html`
             <li>
               ${product.nombre}
-            <div>${product.desc}</div>
+              <div>${product.desc}</div>
             </li>
             <br />
           `,
         )}
       </ul>
+      <mwc-button
+        raised
+        @click=${() =>
+          this.shadowRoot
+            .querySelector('dialog-agregar-producto')
+            // @ts-ignore
+            .open()}
+        >Agregar producto</mwc-button
+      >
+
+      <dialog-agregar-producto></dialog-agregar-producto>
     `;
   }
 }
