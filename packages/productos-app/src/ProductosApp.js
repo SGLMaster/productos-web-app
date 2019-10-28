@@ -13,7 +13,7 @@ export class ProductosApp extends LitElement {
     return {
       title: { type: String },
       page: { type: String },
-      loggedIn: { type: Boolean }
+      loggedIn: { type: Boolean },
     };
   }
 
@@ -58,15 +58,14 @@ export class ProductosApp extends LitElement {
       <header>
         <mwc-tab-bar>
           <mwc-tab label="Inicio" @click=${() => this.switchRoute('')}></mwc-tab>
-          <mwc-tab label="Productos"
-            @click=${() => this.switchRoute('productos')}></mwc-tab>
+          <mwc-tab label="Productos" @click=${() => this.switchRoute('productos')}></mwc-tab>
           <mwc-tab label="Contacto" @click=${() => this.switchRoute('')}></mwc-tab>
 
-          ${this.loggedIn ?
-            '' : html`<mwc-button @click=${() => this.openDialogLogin()} raised>
-            Ingresar</mwc-button>`
-          }
-
+          ${this.loggedIn
+            ? ''
+            : html`
+                <mwc-button @click=${() => this.openDialogLogin()} raised> Ingresar</mwc-button>
+              `}
         </mwc-tab-bar>
       </header>
 

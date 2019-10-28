@@ -36,13 +36,14 @@ export class PageProductos extends LitElement {
   async fetchProducts() {
     try {
       const response = await fetch(
-        'https://ancient-mesa-25039.herokuapp.com/productos?filter[limit]=10', {
+        'https://ancient-mesa-25039.herokuapp.com/productos?filter[limit]=10',
+        {
         method: 'GET',
-        headers:{ 'Content-Type': 'application/json' }
-      });
+          headers: { 'Content-Type': 'application/json' },
+        },
+      );
       this.products = await response.json();
-    }
-    catch (e) {
+    } catch (e) {
       this.failedFetch = true;
     }
   }
@@ -53,21 +54,29 @@ export class PageProductos extends LitElement {
 
   render() {
     if (this.failedFetch) {
-      return html`<h1>Error de conexión</h1>`;
+      return html`
+        <h1>Error de conexión</h1>
+      `;
     }
 
     if (this.products.length === 0) {
-      return html`<h1>Cargando...</h1>`;
+      return html`
+        <h1>Cargando...</h1>
+      `;
     }
 
     return html`
       <h1>Productos</h1>
       <ul>
-        ${this.products.map((product) => html`
-          <li>${product.nombre}
+        ${this.products.map(
+          product => html`
+            <li>
+              ${product.nombre}
             <div>${product.desc}</div>
-          </li><br>
-        `)}
+            </li>
+            <br />
+          `,
+        )}
       </ul>
     `;
   }
