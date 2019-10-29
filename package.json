@@ -71,6 +71,7 @@
     "@material/mwc-textarea": "^0.10.0",
     "@material/mwc-textfield": "^0.10.0",
     "@vaadin/router": "^1.5.1",
+    "dexie": "^2.0.4",
     "lit-element": "^2.0.1",
     "lit-html": "^1.0.0",
     "pwa-helpers": "^0.9.1",

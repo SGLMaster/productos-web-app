@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { Router } from '@vaadin/router';
 import { connect } from 'pwa-helpers';
+import Dexie from 'dexie';
 
 import '@material/mwc-tab-bar';
 import '@material/mwc-tab';
@@ -10,6 +11,9 @@ import '../../page-productos/page-productos.js';
 import '../../dialog-login/dialog-login.js';
 
 import { store } from '../../redux/store.js';
+import { updateToken } from '../../redux/actions/actions.js';
+
+const authDb = new Dexie('authDb');
 
 export class ProductosApp extends connect(store)(LitElement) {
   static get properties() {
@@ -26,7 +30,7 @@ export class ProductosApp extends connect(store)(LitElement) {
     this.token = '';
   }
 
-  firstUpdated() {
+  configureRouter() {
     const router = new Router(this.shadowRoot.getElementById('outlet'));
     router.setRoutes([
       { path: '/', component: 'page-main' },
@@ -42,6 +46,29 @@ export class ProductosApp extends connect(store)(LitElement) {
     this.switchRoute('');
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  async loadTokenFromDb() {
+    try {
+      const result = await authDb
+        .table('auth')
+        .where('token')
+        .notEqual('')
+        .first();
+      if (result) {
+        const { token } = result;
+        store.dispatch(updateToken(token));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  firstUpdated() {
+    authDb.version(1).stores({ auth: 'token' });
+    this.loadTokenFromDb();
+    this.configureRouter();
+  }
+
   switchRoute(page) {
     this.page = page;
     Router.go(`/${page}`);
@@ -54,6 +81,10 @@ export class ProductosApp extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this.token = state.token;
+
+    if (this.token && authDb) {
+      authDb.table('auth').put({ token: this.token });
+    }
   }
 
   render() {
