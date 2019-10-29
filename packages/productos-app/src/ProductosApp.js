@@ -34,7 +34,14 @@ export class ProductosApp extends connect(store)(LitElement) {
     const router = new Router(this.shadowRoot.getElementById('outlet'));
     router.setRoutes([
       { path: '/', component: 'page-main' },
-      { path: '/productos', component: 'page-productos' },
+      {
+        path: '/productos',
+        action: () => {
+          this.page = 'productos';
+          this.shadowRoot.querySelector('mwc-tab-bar').activeIndex = 1;
+        },
+        component: 'page-productos',
+      },
       {
         path: '(.*)',
         redirect: '/',
@@ -43,7 +50,6 @@ export class ProductosApp extends connect(store)(LitElement) {
         },
       },
     ]);
-    this.switchRoute('');
   }
 
   // eslint-disable-next-line class-methods-use-this

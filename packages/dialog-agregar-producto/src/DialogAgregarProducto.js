@@ -13,6 +13,7 @@ export class DialogAgregarProducto extends connect(store)(LitElement) {
     return {
       errorMsg: { type: String },
       token: { type: String },
+      open: { type: Boolean },
     };
   }
 
@@ -28,14 +29,7 @@ export class DialogAgregarProducto extends connect(store)(LitElement) {
     super();
     this.errorMsg = '';
     this.token = '';
-  }
-
-  open() {
-    this.shadowRoot.querySelector('mwc-dialog').open = true;
-  }
-
-  close() {
-    this.shadowRoot.querySelector('mwc-dialog').open = false;
+    this.open = false;
   }
 
   async addProductToDb() {
@@ -66,7 +60,7 @@ export class DialogAgregarProducto extends connect(store)(LitElement) {
       }
 
       this.dispatchEvent(new CustomEvent('new-product-added', {}));
-      this.close();
+      this.open = false;
     } catch (error) {
       this.errorMsg = error.message;
     }
@@ -78,7 +72,16 @@ export class DialogAgregarProducto extends connect(store)(LitElement) {
 
   render() {
     return html`
-      <mwc-dialog title="Agregar Producto">
+      <mwc-dialog
+        title="Agregar Producto"
+        ?open=${this.open}
+        @opened=${() => {
+          this.open = true;
+        }}
+        @closed=${() => {
+          this.open = false;
+        }}
+      >
         <div>
           Ingrese los datos del producto a agregar:
         </div>

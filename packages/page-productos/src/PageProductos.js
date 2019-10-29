@@ -56,6 +56,11 @@ export class PageProductos extends connect(store)(LitElement) {
     }
   }
 
+  async openDialogAgregarProducto() {
+    // @ts-ignore
+    this.shadowRoot.querySelector('dialog-agregar-producto').open = true;
+  }
+
   firstUpdated() {
     this.fetchProducts();
   }
@@ -65,20 +70,13 @@ export class PageProductos extends connect(store)(LitElement) {
   }
 
   render() {
-    if (this.failedFetch) {
-      return html`
-        <h1>Error de conexión</h1>
-      `;
-    }
-
-    if (this.products.length === 0) {
-      return html`
-        <h1>Cargando...</h1>
-      `;
-    }
-
     return html`
       <h1>Productos</h1>
+      ${this.products.length === 0
+        ? html`
+            <h1>Cargando...</h1>
+          `
+        : ''}
       <ul>
         ${this.products.map(
           product => html`
@@ -92,19 +90,13 @@ export class PageProductos extends connect(store)(LitElement) {
       </ul>
       ${this.loggedIn
         ? html`
-            <mwc-button
-              raised
-              @click=${() =>
-                this.shadowRoot
-                  .querySelector('dialog-agregar-producto')
-                  // @ts-ignore
-                  .open()}
+            <mwc-button raised @click=${this.openDialogAgregarProducto}
               >Agregar producto</mwc-button
             >
           `
         : ''}
 
-      <dialog-agregar-producto @new-product-added=${this.fetchProducts}></dialog-agregar-producto>
+      <dialog-agregar-producto @new-product-added=${this.fetchProducts}> </dialog-agregar-producto>
     `;
   }
 }
