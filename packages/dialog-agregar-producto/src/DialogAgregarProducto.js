@@ -65,6 +65,7 @@ export class DialogAgregarProducto extends connect(store)(LitElement) {
         throw error;
       }
 
+      this.dispatchEvent(new CustomEvent('new-product-added', {}));
       this.close();
     } catch (error) {
       this.errorMsg = error.message;

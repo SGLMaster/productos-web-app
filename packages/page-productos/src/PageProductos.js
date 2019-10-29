@@ -104,7 +104,7 @@ export class PageProductos extends connect(store)(LitElement) {
           `
         : ''}
 
-      <dialog-agregar-producto></dialog-agregar-producto>
+      <dialog-agregar-producto @new-product-added=${this.fetchProducts}></dialog-agregar-producto>
     `;
   }
 }
