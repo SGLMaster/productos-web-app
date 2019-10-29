@@ -1,10 +1,12 @@
 import { html, css, LitElement } from 'lit-element';
+import { connect } from 'pwa-helpers';
+import { store } from '../../redux/store.js';
 
 import '@material/mwc-button';
 
 import '../../dialog-agregar-producto/dialog-agregar-producto.js';
 
-export class PageProductos extends LitElement {
+export class PageProductos extends connect(store)(LitElement) {
   static get styles() {
     return css`
       :host {
@@ -28,6 +30,7 @@ export class PageProductos extends LitElement {
     return {
       products: { type: Array },
       failedFetch: { type: Boolean },
+      loggedIn: { type: Boolean },
     };
   }
 
@@ -35,6 +38,7 @@ export class PageProductos extends LitElement {
     super();
     this.products = [];
     this.failedFetch = false;
+    this.loggedIn = false;
   }
 
   async fetchProducts() {
@@ -54,6 +58,10 @@ export class PageProductos extends LitElement {
 
   firstUpdated() {
     this.fetchProducts();
+  }
+
+  stateChanged(state) {
+    this.loggedIn = !!state.token;
   }
 
   render() {
@@ -82,15 +90,19 @@ export class PageProductos extends LitElement {
           `,
         )}
       </ul>
-      <mwc-button
-        raised
-        @click=${() =>
-          this.shadowRoot
-            .querySelector('dialog-agregar-producto')
-            // @ts-ignore
-            .open()}
-        >Agregar producto</mwc-button
-      >
+      ${this.loggedIn
+        ? html`
+            <mwc-button
+              raised
+              @click=${() =>
+                this.shadowRoot
+                  .querySelector('dialog-agregar-producto')
+                  // @ts-ignore
+                  .open()}
+              >Agregar producto</mwc-button
+            >
+          `
+        : ''}
 
       <dialog-agregar-producto></dialog-agregar-producto>
     `;
