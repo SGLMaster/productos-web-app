@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
 import { connect } from 'pwa-helpers';
+import Dexie from 'dexie';
 import { store } from '../../redux/store.js';
 
 import '@material/mwc-button';
@@ -34,23 +35,35 @@ export class PageProductos extends connect(store)(LitElement) {
     };
   }
 
+  async populateProducts() {
+    const response = await fetch('https://ancient-mesa-25039.herokuapp.com/productos', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const products = await response.json();
+
+    await this._db.table('productos').bulkAdd(products);
+    return this.updateProducts();
+  }
+
   constructor() {
     super();
     this.products = [];
     this.failedFetch = false;
     this.loggedIn = false;
+
+    this._db = new Dexie('productos_db');
+    this._db.version(1).stores({ productos: 'id,nombre' });
+    this._db.open();
+    this._db.on('populate', () => this.populateProducts());
   }
 
-  async fetchProducts() {
+  async updateProducts() {
     try {
-      const response = await fetch(
-        'https://ancient-mesa-25039.herokuapp.com/productos?filter[limit]=10',
-        {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-        },
-      );
-      this.products = await response.json();
+      this.products = await this._db
+        .table('productos')
+        .orderBy('id')
+        .toArray();
     } catch (e) {
       this.failedFetch = true;
     }
@@ -62,7 +75,7 @@ export class PageProductos extends connect(store)(LitElement) {
   }
 
   firstUpdated() {
-    this.fetchProducts();
+    this.updateProducts();
   }
 
   stateChanged(state) {
@@ -96,7 +109,7 @@ export class PageProductos extends connect(store)(LitElement) {
           `
         : ''}
 
-      <dialog-agregar-producto @new-product-added=${this.fetchProducts}> </dialog-agregar-producto>
+      <dialog-agregar-producto @new-product-added=${this.updateProducts}> </dialog-agregar-producto>
     `;
   }
 }
