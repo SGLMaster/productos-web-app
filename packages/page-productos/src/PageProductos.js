@@ -42,7 +42,7 @@ export class PageProductos extends connect(store)(LitElement) {
     return {
       products: { type: Array },
       failedFetch: { type: Boolean },
-      loggedIn: { type: Boolean },
+      token: { type: String },
     };
   }
 
@@ -61,7 +61,7 @@ export class PageProductos extends connect(store)(LitElement) {
     super();
     this.products = [];
     this.failedFetch = false;
-    this.loggedIn = false;
+    this.token = '';
 
     this._db = new Dexie('productos_db');
     this._db.version(1).stores({ productos: 'id,nombre' });
@@ -174,6 +174,26 @@ export class PageProductos extends connect(store)(LitElement) {
     }
   }
 
+  async onDeleteProductClicked(event) {
+    try {
+      const id = event.detail;
+      const response = await fetch(`https://ancient-mesa-25039.herokuapp.com/productos/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${this.token}` },
+      });
+      const { status } = response;
+
+      if (status === 204) {
+        this.syncProducts();
+      } else {
+        const { error } = await response.json();
+        throw error;
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   async openDialogAgregarProducto() {
     // @ts-ignore
     this.shadowRoot.querySelector('dialog-agregar-producto').open = true;
@@ -184,14 +204,14 @@ export class PageProductos extends connect(store)(LitElement) {
   }
 
   stateChanged(state) {
-    this.loggedIn = !!state.token;
+    this.token = state.token;
   }
 
   render() {
     return html`
       <h1>Productos</h1>
       <div class="fabs">
-        ${this.loggedIn
+        ${this.token
           ? html`
               <mwc-fab @click=${this.openDialogAgregarProducto} icon="add_circle"></mwc-fab>
             `
@@ -207,7 +227,13 @@ export class PageProductos extends connect(store)(LitElement) {
       <div>
         ${this.products.map(
           product => html`
-            <card-producto name=${product.nombre} description=${product.desc}></card-producto>
+            <card-producto
+              id=${product.id}
+              name=${product.nombre}
+              description=${product.desc}
+              @delete-product-clicked=${this.onDeleteProductClicked}
+            >
+            </card-producto>
           `,
         )}
       </div>
