@@ -22,6 +22,7 @@ module.exports = function(api) {
   const plugins = [
     '@babel/plugin-syntax-dynamic-import',
     '@babel/plugin-syntax-import-meta',
+    '@babel/plugin-proposal-class-properties',
     // rollup rewrites import.meta.url, but makes them point to the file location after bundling
     // we want the location before bundling
     'bundled-import-meta',
