@@ -10,7 +10,7 @@ export default [
     plugins: [
       ...config.plugins,
       cpy({
-        files: ['**/*.png', 'manifest.json', 'service-worker.js'],
+        files: ['**/*.png', 'manifest.json', 'service-worker.js', './packages/workbox-sw.js'],
         dest: 'dist',
         options: {
           // parents makes sure to preserve the original folder structure
