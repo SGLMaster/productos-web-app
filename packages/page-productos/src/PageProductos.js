@@ -14,6 +14,7 @@ export class PageProductos extends connect(store)(LitElement) {
         display: block;
         padding: 25px;
         text-align: center;
+        background-color: white;
       }
 
       ul li {
