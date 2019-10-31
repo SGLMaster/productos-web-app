@@ -1,9 +1,9 @@
-import { findSupportedBrowsers } from '@open-wc/building-utils';
-import customMinifyCss from '@open-wc/building-utils/custom-minify-css.js';
+const { findSupportedBrowsers } = require('@open-wc/building-utils');
+const customMinifyCss = require('@open-wc/building-utils/custom-minify-css');
 
 const production = !process.env.ROLLUP_WATCH;
 
-export default function(api) {
+module.exports = function(api) {
   api.cache(true);
 
   const presets = [
@@ -46,4 +46,4 @@ export default function(api) {
     presets,
     plugins,
   };
-}
+};
