@@ -72,6 +72,7 @@
     "@material/mwc-tab-bar": "^0.10.0",
     "@material/mwc-textarea": "^0.10.0",
     "@material/mwc-textfield": "^0.10.0",
+    "@open-wc/building-utils": "^2.10.2",
     "@vaadin/router": "^1.5.1",
     "dexie": "^2.0.4",
     "lit-element": "^2.0.1",
