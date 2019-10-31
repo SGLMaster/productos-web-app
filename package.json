@@ -66,6 +66,7 @@
   "dependencies": {
     "@material/mwc-button": "^0.10.0",
     "@material/mwc-dialog": "^0.10.0",
+    "@material/mwc-icon": "^0.10.0",
     "@material/mwc-tab": "^0.10.0",
     "@material/mwc-tab-bar": "^0.10.0",
     "@material/mwc-textarea": "^0.10.0",
