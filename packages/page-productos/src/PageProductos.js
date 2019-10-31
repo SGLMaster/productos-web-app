@@ -211,7 +211,7 @@ export class PageProductos extends connect(store)(LitElement) {
           `,
         )}
       </div>
-      <dialog-agregar-producto @new-product-added=${this.updateProducts}> </dialog-agregar-producto>
+      <dialog-agregar-producto @new-product-added=${this.syncProducts}> </dialog-agregar-producto>
     `;
   }
 }
