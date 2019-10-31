@@ -4,6 +4,7 @@ import Dexie from 'dexie';
 import { store } from '../../redux/store.js';
 
 import '@material/mwc-button';
+import '@material/mwc-fab';
 
 import '../../dialog-agregar-producto/dialog-agregar-producto.js';
 import '../../card-producto/card-producto.js';
@@ -14,8 +15,16 @@ export class PageProductos extends connect(store)(LitElement) {
       :host {
         display: block;
         padding: 25px;
-        text-align: center;
         background-color: white;
+      }
+
+      :host h1 {
+        float: left;
+      }
+
+      :host .fabs {
+        float: right;
+        margin-top: 35px;
       }
 
       ul li {
@@ -181,6 +190,15 @@ export class PageProductos extends connect(store)(LitElement) {
   render() {
     return html`
       <h1>Productos</h1>
+      <div class="fabs">
+        ${this.loggedIn
+          ? html`
+              <mwc-fab @click=${this.openDialogAgregarProducto} icon="add_circle"></mwc-fab>
+            `
+          : ''}
+        <mwc-fab @click=${this.syncProducts} icon="sync"></mwc-fab>
+      </div>
+      <div style="clear: both;"></div>
       ${this.products.length === 0
         ? html`
             <h1>Cargando...</h1>
@@ -193,15 +211,6 @@ export class PageProductos extends connect(store)(LitElement) {
           `,
         )}
       </div>
-      <!-- ${this.loggedIn
-        ? html`
-            <mwc-button raised @click=${this.openDialogAgregarProducto}
-              >Agregar producto</mwc-button
-            >
-          `
-        : ''} -->
-
-      <mwc-button raised @click=${this.syncProducts}>Sincronizar</mwc-button>
       <dialog-agregar-producto @new-product-added=${this.updateProducts}> </dialog-agregar-producto>
     `;
   }
