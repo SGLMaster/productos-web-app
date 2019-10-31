@@ -4,6 +4,7 @@ import '@material/mwc-icon';
 
 @customElement('card-producto')
 export class CardProducto extends LitElement {
+  @property() id: string;
   @property() name: string;
   @property() description: string;
 
@@ -12,6 +13,7 @@ export class CardProducto extends LitElement {
       <div>
         <mwc-icon class="picture">insert_photo</mwc-icon>
         <h3>${this.name}</h3>
+        <mwc-icon class="delete">delete</mwc-icon>
         <p>${this.description}</p>
       </div>
     `;
@@ -36,6 +38,18 @@ export class CardProducto extends LitElement {
 
       div h3 {
         display: inline;
+      }
+
+      div .delete {
+        color: #009688;
+        --mdc-icon-size: 32px;
+        float: right;
+        margin-right: 10px;
+        margin-top: 10px;
+      }
+
+      div .delete:hover {
+        cursor: pointer;
       }
 
       div p {

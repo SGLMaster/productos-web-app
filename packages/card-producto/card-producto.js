@@ -12,6 +12,7 @@ let CardProducto = class CardProducto extends LitElement {
       <div>
         <mwc-icon class="picture">insert_photo</mwc-icon>
         <h3>${this.name}</h3>
+        <mwc-icon class="delete">delete</mwc-icon>
         <p>${this.description}</p>
       </div>
     `;
@@ -37,6 +38,18 @@ let CardProducto = class CardProducto extends LitElement {
         display: inline;
       }
 
+      div .delete {
+        color: #009688;
+        --mdc-icon-size: 32px;
+        float: right;
+        margin-right: 10px;
+        margin-top: 10px;
+      }
+
+      div .delete:hover {
+        cursor: pointer;
+      }
+
       div p {
         padding-left: 10px;
         padding-bottom: 10px;
@@ -45,6 +58,9 @@ let CardProducto = class CardProducto extends LitElement {
     `;
     }
 };
+__decorate([
+    property()
+], CardProducto.prototype, "id", void 0);
 __decorate([
     property()
 ], CardProducto.prototype, "name", void 0);
