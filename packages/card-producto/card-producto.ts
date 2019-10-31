@@ -7,18 +7,26 @@ export class CardProducto extends LitElement {
   @property() id: string;
   @property() name: string;
   @property() description: string;
+  @property({ type: Boolean }) showDeleteButton;
 
   render() {
     return html`
       <div>
         <mwc-icon class="picture">insert_photo</mwc-icon>
         <h3>${this.name}</h3>
-        <mwc-icon
-          class="delete"
-          @click=${() =>
-            this.dispatchEvent(new CustomEvent('delete-product-clicked', { detail: this.id }))}
-          >delete</mwc-icon
-        >
+
+        ${this.showDeleteButton
+          ? html`
+              <mwc-icon
+                class="delete"
+                @click=${() =>
+                  this.dispatchEvent(
+                    new CustomEvent('delete-product-clicked', { detail: this.id }),
+                  )}
+                >delete</mwc-icon
+              >
+            `
+          : ''}
         <p>${this.description}</p>
       </div>
     `;

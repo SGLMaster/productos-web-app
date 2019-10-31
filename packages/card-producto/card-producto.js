@@ -12,11 +12,16 @@ let CardProducto = class CardProducto extends LitElement {
       <div>
         <mwc-icon class="picture">insert_photo</mwc-icon>
         <h3>${this.name}</h3>
-        <mwc-icon
-          class="delete"
-          @click=${() => this.dispatchEvent(new CustomEvent('delete-product-clicked', { detail: this.id }))}
-          >delete</mwc-icon
-        >
+
+        ${this.showDeleteButton
+            ? html `
+              <mwc-icon
+                class="delete"
+                @click=${() => this.dispatchEvent(new CustomEvent('delete-product-clicked', { detail: this.id }))}
+                >delete</mwc-icon
+              >
+            `
+            : ''}
         <p>${this.description}</p>
       </div>
     `;
@@ -71,6 +76,9 @@ __decorate([
 __decorate([
     property()
 ], CardProducto.prototype, "description", void 0);
+__decorate([
+    property({ type: Boolean })
+], CardProducto.prototype, "showDeleteButton", void 0);
 CardProducto = __decorate([
     customElement('card-producto')
 ], CardProducto);

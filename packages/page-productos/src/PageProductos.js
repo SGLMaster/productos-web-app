@@ -232,6 +232,7 @@ export class PageProductos extends connect(store)(LitElement) {
               name=${product.nombre}
               description=${product.desc}
               @delete-product-clicked=${this.onDeleteProductClicked}
+              ?showDeleteButton=${!!this.token}
             >
             </card-producto>
           `,
