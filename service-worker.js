@@ -132,7 +132,7 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "aa52120bcf68c56bc7244aa6ac85dbe5"
+    "revision": "440b29f78785616b8c13c71af5b34fa8"
   }
 ]);
 
