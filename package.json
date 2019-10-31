@@ -18,9 +18,9 @@
     "storybook": "start-storybook -p 9001",
     "storybook:build": "build-storybook -o _site -s storybook-static",
     "start:build": "cd dist && es-dev-server --open",
-    "build": "rimraf dist && rollup -c rollup.config.js",
-    "build:ts": "tsc -p tsconfig.build.json",
-    "start": "es-dev-server --app-index index.html --node-resolve --open --watch",
+    "build": "workbox injectManifest workbox-config.js && rimraf dist && rollup -c rollup.config.js",
+    "ts:watch": "tsc -p tsconfig.build.json --watch",
+    "start": "workbox injectManifest workbox-config.js && es-dev-server --app-index index.html --node-resolve --open --watch",
     "start:compatibility": "es-dev-server --app-index index.html --compatibility all --node-resolve --open --watch"
   },
   "devDependencies": {
