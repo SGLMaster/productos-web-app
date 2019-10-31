@@ -60,6 +60,13 @@ export class DialogAgregarProducto extends connect(store)(LitElement) {
       }
 
       this.dispatchEvent(new CustomEvent('new-product-added', {}));
+
+      textfields.forEach(field => {
+        // eslint-disable-next-line no-param-reassign
+        field.value = '';
+      });
+      this.shadowRoot.querySelector('mwc-textarea').value = '';
+
       this.open = false;
     } catch (error) {
       this.errorMsg = error.message;
