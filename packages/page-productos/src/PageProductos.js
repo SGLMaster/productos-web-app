@@ -6,6 +6,7 @@ import { store } from '../../redux/store.js';
 import '@material/mwc-button';
 
 import '../../dialog-agregar-producto/dialog-agregar-producto.js';
+import '../../card-producto/card-producto.js';
 
 export class PageProductos extends connect(store)(LitElement) {
   static get styles() {
@@ -185,17 +186,13 @@ export class PageProductos extends connect(store)(LitElement) {
             <h1>Cargando...</h1>
           `
         : ''}
-      <ul>
+      <div>
         ${this.products.map(
           product => html`
-            <li>
-              ${product.nombre}
-              <div>${product.desc}</div>
-            </li>
-            <br />
+            <card-producto name=${product.nombre} description=${product.desc}></card-producto>
           `,
         )}
-      </ul>
+      </div>
       <!-- ${this.loggedIn
         ? html`
             <mwc-button raised @click=${this.openDialogAgregarProducto}
