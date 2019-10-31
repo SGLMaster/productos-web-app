@@ -4,13 +4,4 @@ import { createDefaultConfig } from '@open-wc/building-rollup';
 // import { createCompatibilityConfig } from '@open-wc/building-rollup';
 // export default createCompatibilityConfig({ input: './index.html' });
 
-const config = createDefaultConfig({ input: './index.html' });
-
-export default {
-  ...config,
-  output: {
-    ...config.output,
-    sourcemap: false,
-  },
-  plugins: [...config.plugins, '@babel/plugin-proposal-class-properties'],
-};
+export default createDefaultConfig({ input: './index.html' });
