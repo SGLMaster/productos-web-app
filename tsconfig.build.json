@@ -1,7 +1,15 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "lib": ["es2017", "dom"],
     "allowJs": false,
-    "checkJs": false
-  }
+    "checkJs": false,
+    "baseUrl": "./packages",
+    "types": ["node"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }
