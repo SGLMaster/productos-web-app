@@ -1,7 +1,8 @@
 import cpy from 'rollup-plugin-cpy';
-import { createDefaultConfig } from '@open-wc/building-rollup';
 
-const config = createDefaultConfig({ input: './index.html' });
+const createDefaultConfig = require('./packages/building-rollup/modern-config.js');
+
+const config = createDefaultConfig({ input: './index.html', plugins: { workbox: true } });
 
 export default [
   // add plugin to the first config
@@ -10,7 +11,7 @@ export default [
     plugins: [
       ...config.plugins,
       cpy({
-        files: ['**/*.png', 'manifest.json', 'service-worker.js', './packages/workbox-sw.js'],
+        files: ['**/*.png', 'manifest.json'],
         dest: 'dist',
         options: {
           // parents makes sure to preserve the original folder structure
