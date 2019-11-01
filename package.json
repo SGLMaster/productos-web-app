@@ -21,7 +21,7 @@
     "build": "workbox injectManifest workbox-config.js && rimraf dist && rollup -c rollup.config.js",
     "build:prod": "rimraf dist && rollup -c rollup.config.js",
     "ts:watch": "tsc -p tsconfig.build.json --watch",
-    "start": "workbox injectManifest workbox-config.js && es-dev-server --app-index index.html --node-resolve --open --watch",
+    "start": "es-dev-server --app-index index.html --node-resolve --open --watch",
     "start:compatibility": "es-dev-server --app-index index.html --compatibility all --node-resolve --open --watch"
   },
   "devDependencies": {
